@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/util/theme/theme.dart';
+import 'package:first_app/theme/theme.dart';
 
 AppBar theAppBar() {
   return AppBar(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../object/menu.dart';
+import 'package:first_app/object/menu.dart';
 
 class ShowGerobakDetail extends StatefulWidget {
   @override

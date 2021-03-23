@@ -1,9 +1,10 @@
-import 'package:first_app/util/template/all_items.dart';
+import 'package:first_app/controller/controller.dart';
+import 'package:first_app/screen/input_gerobak/input_gerobak.dart';
+import 'package:first_app/screen/show_gerobak_detail/show_gerobak_detail.dart';
+import 'package:first_app/theme/all_items.dart';
 import 'package:flutter/material.dart';
-import 'package:first_app/util/widgets/input_gerobak.dart';
 import 'package:first_app/object/menu.dart';
-import 'package:first_app/util/widgets/input_menu_form.dart';
-import 'package:first_app/util/widgets/show_gerobak_detail.dart';
+import 'package:first_app/screen/input_menu/input_menu_form.dart';
 
 class InputMenuPage extends StatefulWidget {
   @override
@@ -58,8 +59,7 @@ class InputMenuPageState extends State<InputMenuPage> {
               style: Theme.of(context).textTheme.headline3,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InputGerobak()));
+              pushNavigate(context, InputGerobakScreen());
             },
           ),
         ),
@@ -74,8 +74,7 @@ class InputMenuPageState extends State<InputMenuPage> {
               style: Theme.of(context).textTheme.headline2,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ShowGerobakDetail()));
+              pushNavigate(context, ShowGerobakDetailScreen());
             },
           ),
         ),

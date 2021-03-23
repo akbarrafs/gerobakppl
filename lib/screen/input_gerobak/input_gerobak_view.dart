@@ -1,9 +1,11 @@
 import 'dart:io';
 
-import 'package:first_app/util/template/all_items.dart';
+import 'package:first_app/controller/controller.dart';
+import 'package:first_app/model/modelg.dart';
+import 'package:first_app/screen/input_menu/input_menu.dart';
+import 'package:first_app/theme/all_items.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'input_menu_page.dart';
 
 class InputGerobak extends StatefulWidget {
   @override
@@ -12,21 +14,7 @@ class InputGerobak extends StatefulWidget {
   }
 }
 
-class InputGerobakState extends State<InputGerobak> {
-  String namaGerobak;
-  File foto;
-  String tipeMakanan;
-  bool antar;
-  bool jemput;
-
-  void initState() {
-    antar = false;
-    jemput = false;
-  }
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final picker = ImagePicker();
-
+class InputGerobakState extends InputGerobakModel {
   Widget _buildNamaGerobak() {
     return TextFormField(
       style: Theme.of(context).textTheme.headline6,
@@ -40,7 +28,7 @@ class InputGerobakState extends State<InputGerobak> {
       ),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Nama gerobak harus diisi!';
+          return NamaFieldValidator.validate(value);
         }
       },
       onSaved: (String value) {
@@ -100,6 +88,7 @@ class InputGerobakState extends State<InputGerobak> {
 
   Widget _buildFoto() {
     return FlatButton(
+      key: Key('Button Upload'),
       color: Theme.of(context).primaryColor,
       onPressed: () {
         _showChoiceDialog(context);
@@ -119,6 +108,7 @@ class InputGerobakState extends State<InputGerobak> {
       return _buildFoto();
     } else {
       return ClipRRect(
+        key: Key('Gerobak Image'),
         borderRadius: BorderRadius.circular(30.0),
         child: Image.file(foto, width: 300, height: 300, fit: BoxFit.contain),
       );
@@ -139,7 +129,7 @@ class InputGerobakState extends State<InputGerobak> {
       ),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Tipe Makanan harus diisi!';
+          return TipeMakananFieldValidator.validate(value);
         }
       },
       onSaved: (String value) {
@@ -186,6 +176,7 @@ class InputGerobakState extends State<InputGerobak> {
   Widget _greyText(String text) {
     Text greyText = new Text(
       text,
+      key: Key('Secondary Text'),
       style: Theme.of(context).textTheme.bodyText2,
     );
     return greyText;
@@ -206,6 +197,7 @@ class InputGerobakState extends State<InputGerobak> {
 
   Widget _infoButton() {
     return IconButton(
+      key: Key('Button Informasi'),
       onPressed: () {
         _showInformation(context);
       },
@@ -219,6 +211,7 @@ class InputGerobakState extends State<InputGerobak> {
 
   Widget _submitButton() {
     return FlatButton(
+      key: Key('Button Submit'),
       color: Color(0xFFF9BF3B),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -228,12 +221,11 @@ class InputGerobakState extends State<InputGerobak> {
         style: Theme.of(context).textTheme.headline2,
       ), // Text
       onPressed: () {
-        if (!_formKey.currentState.validate()) {
+        if (!formKey.currentState.validate()) {
           return;
         }
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => InputMenuPage()));
-        _formKey.currentState.save();
+        formKey.currentState.save();
+        pushNavigate(context, InputMenuScreen());
       },
     );
   }
@@ -246,7 +238,7 @@ class InputGerobakState extends State<InputGerobak> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -256,6 +248,7 @@ class InputGerobakState extends State<InputGerobak> {
                 SizedBox(height: 5),
                 Text(
                   "Nama Gerobak",
+                  key: Key('NamaGerobak Text'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
@@ -264,6 +257,7 @@ class InputGerobakState extends State<InputGerobak> {
                 SizedBox(height: 20),
                 Text(
                   "Foto Gerobak",
+                  key: Key('FotoGerobak Text'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
@@ -273,6 +267,7 @@ class InputGerobakState extends State<InputGerobak> {
                 Text(
                   "Tipe Makanan",
                   textAlign: TextAlign.left,
+                  key: Key('TipeMakanan Text'),
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 SizedBox(height: 5),
@@ -282,6 +277,7 @@ class InputGerobakState extends State<InputGerobak> {
                   children: <Widget>[
                     Text(
                       "Status Availibilitas",
+                      key: Key('Status Text'),
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),

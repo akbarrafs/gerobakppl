@@ -8,13 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:first_app/model/home.dart';
+import 'package:first_app/screen/home.dart';
 
-void main() {
-  testWidgets('Application Name Test', (WidgetTester tester) async {
-    await tester.pumpWidget(GerobakApp());
-
-    expect(find.text('Selamat datang di Aplikasi Gerobak'), findsOneWidget);
-    expect(find.text('selamat tinggal'), findsNothing);
-  });
-}
+void main() {}

@@ -1,6 +1,6 @@
-import 'package:first_app/util/template/all_items.dart';
+import 'package:first_app/theme/all_items.dart';
 import 'package:flutter/material.dart';
-import 'input_gerobak.dart';
+import 'input_gerobak/input_gerobak_view.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

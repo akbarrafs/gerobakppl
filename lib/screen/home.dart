@@ -1,7 +1,7 @@
 import 'package:first_app/object/gerobak.dart';
-import 'package:first_app/util/theme/theme.dart';
+import 'package:first_app/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:first_app/util/widgets/home_screen.dart';
+import 'package:first_app/screen/home_screen.dart';
 
 class GerobakApp extends StatelessWidget {
   Gerobak gerobak;
