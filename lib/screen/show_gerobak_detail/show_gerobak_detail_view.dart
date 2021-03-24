@@ -1,3 +1,4 @@
+import 'package:first_app/model/modelg.dart';
 import 'package:flutter/material.dart';
 
 import 'package:first_app/object/menu.dart';
@@ -9,29 +10,16 @@ class ShowGerobakDetail extends StatefulWidget {
   }
 }
 
-class ShowGerobakDetailState extends State<ShowGerobakDetail> {
-  List<Menu> menus;
-  bool sort;
-  bool antar;
-  bool jemput;
-
-  void initState() {
-    sort = false;
-    antar = false;
-    jemput = false;
-    menus = Menu.getMenu();
-    super.initState();
-  }
-
-  onSortColumn(int columnIndex, bool ascending) {
-    if (columnIndex == 0) {
-      if (ascending) {
-        menus.sort((a, b) => a.namaMenu.compareTo(b.namaMenu));
-      } else {
-        menus.sort((a, b) => b.namaMenu.compareTo(a.namaMenu));
-      }
-    }
-  }
+class ShowGerobakDetailState extends ShowGerobakDetailModel {
+  // onSortColumn(int columnIndex, bool ascending) {
+  //   if (columnIndex == 0) {
+  //     if (ascending) {
+  //       menus.sort((a, b) => a.namaMenu.compareTo(b.namaMenu));
+  //     } else {
+  //       menus.sort((a, b) => b.namaMenu.compareTo(a.namaMenu));
+  //     }
+  //   }
+  // }
 
   Widget _isiGerobak() {
     return Container(
@@ -72,14 +60,14 @@ class ShowGerobakDetailState extends State<ShowGerobakDetail> {
           label: Text("Nama Menu"),
           numeric: false,
           tooltip: "Nama Makanan",
-          onSort: (columnIndex, ascending) {
-            setState(
-              () {
-                sort = !sort;
-              },
-            );
-            onSortColumn(columnIndex, ascending);
-          },
+          // onSort: (columnIndex, ascending) {
+          //   setState(
+          //     () {
+          //       sort = !sort;
+          //     },
+          //   );
+          //   onSortColumn(columnIndex, ascending);
+          // },
         ),
         DataColumn(
           label: Text("Harga"),
@@ -114,7 +102,6 @@ class ShowGerobakDetailState extends State<ShowGerobakDetail> {
         ' Pesan',
         style: Theme.of(context).textTheme.headline2,
       ), // Text
-      onPressed: () {},
     );
   }
 
@@ -125,13 +112,13 @@ class ShowGerobakDetailState extends State<ShowGerobakDetail> {
         children: <Widget>[
           Radio(
             value: antar,
-            onChanged: (bool value) {
-              setState(
-                () {
-                  antar = value;
-                },
-              );
-            },
+            // onChanged: (bool value) {
+            //   setState(
+            //     () {
+            //       antar = value;
+            //     },
+            //   );
+            // },
           ),
           Text(
             "Antar",
@@ -139,13 +126,13 @@ class ShowGerobakDetailState extends State<ShowGerobakDetail> {
           ),
           Radio(
             value: jemput,
-            onChanged: (bool value) {
-              setState(
-                () {
-                  jemput = value;
-                },
-              );
-            },
+            // onChanged: (bool value) {
+            //   setState(
+            //     () {
+            //       jemput = value;
+            //     },
+            //   );
+            // },
           ),
           Text(
             "Jemput",

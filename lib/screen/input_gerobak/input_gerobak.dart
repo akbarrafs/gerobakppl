@@ -10,6 +10,7 @@ class InputGerobakScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: basicTheme(),
       home: InputGerobak(),
+      key: Key('InputGerobakScreen Key'),
     );
   }
 }

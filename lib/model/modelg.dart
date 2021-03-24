@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:first_app/object/menu.dart';
 import 'package:first_app/screen/input_gerobak/input_gerobak_view.dart';
+import 'package:first_app/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,6 +16,28 @@ abstract class InputGerobakModel extends State<InputGerobak> {
   String tipeMakanan;
   bool antar;
   bool jemput;
+
+  @override
+  void initState() {
+    super.initState();
+    antar = false;
+    jemput = false;
+  }
+}
+
+abstract class ShowGerobakDetailModel extends State<ShowGerobakDetail> {
+  List<Menu> menus;
+  bool sort;
+  bool antar;
+  bool jemput;
+
+  void initState() {
+    sort = false;
+    antar = false;
+    jemput = false;
+    menus = Menu.getMenu();
+    super.initState();
+  }
 }
 
 class NamaFieldValidator {

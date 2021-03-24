@@ -9,6 +9,7 @@ class ShowGerobakDetailScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: basicTheme(),
       home: ShowGerobakDetail(),
+      key: Key('ShowGerobakDetailScreen Key'),
     );
   }
 }

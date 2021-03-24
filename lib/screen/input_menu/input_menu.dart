@@ -9,6 +9,7 @@ class InputMenuScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: basicTheme(),
       home: InputMenuPage(),
+      key: Key('InputMenuScreen Key'),
     );
   }
 }

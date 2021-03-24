@@ -24,6 +24,7 @@ dependencies:
   image_picker:
   flutter:
     sdk: flutter
+  mockito: 3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

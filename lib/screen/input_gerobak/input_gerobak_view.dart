@@ -4,6 +4,7 @@ import 'package:first_app/controller/controller.dart';
 import 'package:first_app/model/modelg.dart';
 import 'package:first_app/screen/input_menu/input_menu.dart';
 import 'package:first_app/theme/all_items.dart';
+import 'package:first_app/theme/button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,9 +28,7 @@ class InputGerobakState extends InputGerobakModel {
         ),
       ),
       validator: (String value) {
-        if (value.isEmpty) {
-          return NamaFieldValidator.validate(value);
-        }
+        return NamaFieldValidator.validate(value);
       },
       onSaved: (String value) {
         namaGerobak = value;
@@ -42,6 +41,7 @@ class InputGerobakState extends InputGerobakModel {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          key: Key('Dialog Upload Choice'),
           title: Text("Gambar dari.."),
           content: SingleChildScrollView(
             child: ListBody(
@@ -87,15 +87,12 @@ class InputGerobakState extends InputGerobakModel {
   }
 
   Widget _buildFoto() {
-    return FlatButton(
+    return TextButton(
       key: Key('Button Upload'),
-      color: Theme.of(context).primaryColor,
+      style: primaryButtonStyle(),
       onPressed: () {
         _showChoiceDialog(context);
       },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
       child: Text(
         "Upload Gambar",
         style: Theme.of(context).textTheme.headline2,
@@ -108,9 +105,14 @@ class InputGerobakState extends InputGerobakModel {
       return _buildFoto();
     } else {
       return ClipRRect(
-        key: Key('Gerobak Image'),
         borderRadius: BorderRadius.circular(30.0),
-        child: Image.file(foto, width: 300, height: 300, fit: BoxFit.contain),
+        child: Image.file(
+          foto,
+          width: 300,
+          height: 300,
+          fit: BoxFit.contain,
+          key: Key('Image Gerobak'),
+        ),
       );
     }
   }
@@ -128,9 +130,7 @@ class InputGerobakState extends InputGerobakModel {
         ),
       ),
       validator: (String value) {
-        if (value.isEmpty) {
-          return TipeMakananFieldValidator.validate(value);
-        }
+        return TipeMakananFieldValidator.validate(value);
       },
       onSaved: (String value) {
         tipeMakanan = value;
@@ -142,6 +142,7 @@ class InputGerobakState extends InputGerobakModel {
     return Row(
       children: <Widget>[
         Checkbox(
+          key: Key('Checkbox Antar'),
           value: antar,
           onChanged: (bool value) {
             setState(
@@ -156,6 +157,7 @@ class InputGerobakState extends InputGerobakModel {
           style: Theme.of(context).textTheme.bodyText1,
         ),
         Checkbox(
+          key: Key('Checkbox Jemput'),
           value: jemput,
           onChanged: (bool value) {
             setState(
@@ -176,7 +178,7 @@ class InputGerobakState extends InputGerobakModel {
   Widget _greyText(String text) {
     Text greyText = new Text(
       text,
-      key: Key('Secondary Text'),
+      key: Key('Text Secondary'),
       style: Theme.of(context).textTheme.bodyText2,
     );
     return greyText;
@@ -187,6 +189,7 @@ class InputGerobakState extends InputGerobakModel {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          key: Key('Dialog Informasi'),
           title: Text("Informasi"),
           content: _greyText(
               "Antar : Dimana Anda mendatangi pembeli secara langsung.\nJemput : Dimana pembeli mendatangi Anda untuk mengambil pesanan."),
@@ -210,21 +213,14 @@ class InputGerobakState extends InputGerobakModel {
   }
 
   Widget _submitButton() {
-    return FlatButton(
+    return TextButton(
       key: Key('Button Submit'),
-      color: Color(0xFFF9BF3B),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+      style: primaryButtonStyle(),
       child: Text(
         'Selanjutnya',
         style: Theme.of(context).textTheme.headline2,
       ), // Text
       onPressed: () {
-        if (!formKey.currentState.validate()) {
-          return;
-        }
-        formKey.currentState.save();
         pushNavigate(context, InputMenuScreen());
       },
     );
@@ -248,7 +244,7 @@ class InputGerobakState extends InputGerobakModel {
                 SizedBox(height: 5),
                 Text(
                   "Nama Gerobak",
-                  key: Key('NamaGerobak Text'),
+                  key: Key('Text NamaGerobak'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
@@ -257,7 +253,7 @@ class InputGerobakState extends InputGerobakModel {
                 SizedBox(height: 20),
                 Text(
                   "Foto Gerobak",
-                  key: Key('FotoGerobak Text'),
+                  key: Key('Text FotoGerobak'),
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
@@ -267,7 +263,7 @@ class InputGerobakState extends InputGerobakModel {
                 Text(
                   "Tipe Makanan",
                   textAlign: TextAlign.left,
-                  key: Key('TipeMakanan Text'),
+                  key: Key('Text TipeMakanan'),
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 SizedBox(height: 5),
@@ -277,7 +273,7 @@ class InputGerobakState extends InputGerobakModel {
                   children: <Widget>[
                     Text(
                       "Status Availibilitas",
-                      key: Key('Status Text'),
+                      key: Key('Text Status'),
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
