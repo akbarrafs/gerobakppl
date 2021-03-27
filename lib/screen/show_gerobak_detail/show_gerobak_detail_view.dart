@@ -1,4 +1,5 @@
-import 'package:first_app/model/modelg.dart';
+import 'package:first_app/model/model.dart';
+import 'package:first_app/theme/button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:first_app/object/menu.dart';
@@ -11,16 +12,6 @@ class ShowGerobakDetail extends StatefulWidget {
 }
 
 class ShowGerobakDetailState extends ShowGerobakDetailModel {
-  // onSortColumn(int columnIndex, bool ascending) {
-  //   if (columnIndex == 0) {
-  //     if (ascending) {
-  //       menus.sort((a, b) => a.namaMenu.compareTo(b.namaMenu));
-  //     } else {
-  //       menus.sort((a, b) => b.namaMenu.compareTo(a.namaMenu));
-  //     }
-  //   }
-  // }
-
   Widget _isiGerobak() {
     return Container(
       color: Theme.of(context).primaryColor,
@@ -30,19 +21,23 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
           SizedBox(height: 90),
           Text(
             "Detail Gerobak",
+            key: Key('Text DetailGerobakDetail'),
             style: Theme.of(context).textTheme.headline5,
           ),
           Text("Fotonya"),
           Text(
             "Sate Padang Mba Nadia",
+            key: Key('Text NamaGerobakDetail'),
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
             "Tipe Makanan",
+            key: Key('Text TipeMakananDetail'),
             style: Theme.of(context).textTheme.headline4,
           ),
           Text(
             "Rating",
+            key: Key('Text RatingDetail'),
             style: Theme.of(context).textTheme.headline4,
           ),
           SizedBox(height: 10),
@@ -53,6 +48,7 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
 
   Widget _detailMenu() {
     return DataTable(
+      key: Key('Table DataTableDetail'),
       sortAscending: sort,
       sortColumnIndex: 0,
       columns: [
@@ -60,14 +56,6 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
           label: Text("Nama Menu"),
           numeric: false,
           tooltip: "Nama Makanan",
-          // onSort: (columnIndex, ascending) {
-          //   setState(
-          //     () {
-          //       sort = !sort;
-          //     },
-          //   );
-          //   onSortColumn(columnIndex, ascending);
-          // },
         ),
         DataColumn(
           label: Text("Harga"),
@@ -93,11 +81,10 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
   }
 
   Widget _tambahMenu() {
-    return FlatButton(
-      color: Color(0xFFF9BF3B),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+    return TextButton(
+      key: Key('Button PesanDetail'),
+      style: primaryButtonStyle(),
+      onPressed: () {},
       child: Text(
         ' Pesan',
         style: Theme.of(context).textTheme.headline2,
@@ -111,28 +98,18 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
       child: Row(
         children: <Widget>[
           Radio(
+            key: Key('Radio AntarDetail'),
             value: antar,
-            // onChanged: (bool value) {
-            //   setState(
-            //     () {
-            //       antar = value;
-            //     },
-            //   );
-            // },
+            groupValue: null,
           ),
           Text(
             "Antar",
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Radio(
+            key: Key('Radio JemputDetail'),
             value: jemput,
-            // onChanged: (bool value) {
-            //   setState(
-            //     () {
-            //       jemput = value;
-            //     },
-            //   );
-            // },
+            groupValue: null,
           ),
           Text(
             "Jemput",

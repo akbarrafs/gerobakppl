@@ -12,6 +12,7 @@ class GerobakApp extends StatelessWidget {
       // theme: ThemeData(),
       theme: basicTheme(),
       home: HomeScreen(),
+      key: Key('GerobakApp Key'),
     );
   }
 }
