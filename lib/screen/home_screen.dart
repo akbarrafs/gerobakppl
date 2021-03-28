@@ -1,5 +1,5 @@
-import 'package:first_app/screen/input_gerobak_detail/input_gerobak/input_gerobak_view.dart';
-import 'package:first_app/theme/all_items.dart';
+import 'package:gerobak_flutter/screen/input_gerobak_detail/input_gerobak/input_gerobak_view.dart';
+import 'package:gerobak_flutter/theme/all_items.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

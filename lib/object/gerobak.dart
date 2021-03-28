@@ -4,38 +4,24 @@ import 'menu.dart';
 
 class Gerobak {
   String namaGerobak;
-  File foto;
+  File fotoGerobak;
   String tipeMakanan;
-  String rating = '5';
-  bool antar;
-  bool jemput;
+  String rating;
+  bool statusAntar;
+  bool statusJemput;
   List<Menu> listMenu;
 
   void initState() {
-    antar = false;
-    jemput = false;
+    statusAntar = false;
+    statusJemput = false;
   }
 
-  Gerobak(
-      {this.namaGerobak, this.foto, this.tipeMakanan, this.antar, this.jemput});
-
-  // String getNamaGerobak() {
-  //   return this.namaGerobak;
-  // }
-
-  // File getFoto() {
-  //   return this.foto;
-  // }
-
-  // bool getAntar() {
-  //   return this.antar;
-  // }
-
-  // bool getJemput() {
-  //   return this.jemput;
-  // }
-
-  // List<Menu> getListMenu() {
-  //   return this.listMenu;
-  // }
+  Gerobak({
+    this.namaGerobak,
+    this.fotoGerobak,
+    this.tipeMakanan,
+    this.statusAntar,
+    this.statusJemput,
+    this.listMenu,
+  });
 }

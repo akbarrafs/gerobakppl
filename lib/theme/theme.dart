@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/theme/color.dart';
+import 'package:gerobak_flutter/theme/color.dart';
 
 ThemeData basicTheme() {
   TextTheme _basicTextTheme(TextTheme base) {

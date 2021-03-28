@@ -1,5 +1,6 @@
+import 'package:gerobak_flutter/model/gerobak_detail_model.dart';
 import 'package:flutter/material.dart';
-import 'package:first_app/object/menu.dart';
+import 'package:gerobak_flutter/object/menu.dart';
 
 typedef OnDelete();
 
@@ -40,11 +41,7 @@ class InputMenuFormState extends State<InputMenuForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                validator: (String value) {
-                  if (value.isEmpty) {
-                    return 'Menu harus diisi!';
-                  }
-                },
+                validator: NamaMenuValidator.validate,
                 onSaved: (String value) {
                   // namaGerobak = value;
                 },
@@ -72,11 +69,7 @@ class InputMenuFormState extends State<InputMenuForm> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                validator: (String value) {
-                  if (value.isEmpty) {
-                    return 'Harga harus diisi!';
-                  }
-                },
+                validator: HargaMenuValidator.validate,
                 onSaved: (String value) {
                   // namaGerobak = value;
                 },

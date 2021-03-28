@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/theme/color.dart';
-import 'package:first_app/theme/text.dart';
+import 'package:gerobak_flutter/theme/color.dart';
+import 'package:gerobak_flutter/theme/text.dart';
 
 InputDecoration formInputDecoration() {
   return InputDecoration(

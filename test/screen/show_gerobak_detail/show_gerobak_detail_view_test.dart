@@ -1,4 +1,4 @@
-import 'package:first_app/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
+import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

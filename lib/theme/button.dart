@@ -1,4 +1,4 @@
-import 'package:first_app/theme/color.dart';
+import 'package:gerobak_flutter/theme/color.dart';
 import 'package:flutter/material.dart';
 
 ButtonStyle elevatedButtonStyle(Color primary, Color onPrimary) {

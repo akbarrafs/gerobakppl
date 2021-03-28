@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:first_app/controller/controller.dart';
-import 'package:first_app/model/model.dart';
-import 'package:first_app/screen/input_gerobak_detail/input_menu/input_menu.dart';
-import 'package:first_app/theme/all_items.dart';
-import 'package:first_app/theme/button.dart';
+import 'package:gerobak_flutter/controller/controller.dart';
+import 'package:gerobak_flutter/model/gerobak_detail_model.dart';
+import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_menu.dart';
+import 'package:gerobak_flutter/theme/all_items.dart';
+import 'package:gerobak_flutter/theme/button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -33,7 +33,7 @@ class InputGerobakState extends InputGerobakModel {
     );
   }
 
-  _showChoiceDialog(BuildContext context) {
+  Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -53,6 +53,17 @@ class InputGerobakState extends InputGerobakModel {
                   child: Text("Camera"),
                   onTap: () {
                     _openCamera(context);
+                  },
+                ),
+                TextButton(
+                  key: Key('TextButton Close'),
+                  style: primaryButtonStyle(),
+                  child: Text(
+                    'Close',
+                    style: Theme.of(context).textTheme.headline2,
+                  ), // Text
+                  onPressed: () {
+                    Navigator.of(context).pop();
                   },
                 ),
               ],

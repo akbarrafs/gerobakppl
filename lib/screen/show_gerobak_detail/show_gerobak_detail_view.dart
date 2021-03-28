@@ -1,8 +1,6 @@
-import 'package:first_app/model/model.dart';
-import 'package:first_app/theme/button.dart';
+import 'package:gerobak_flutter/model/gerobak_detail_model.dart';
+import 'package:gerobak_flutter/theme/button.dart';
 import 'package:flutter/material.dart';
-
-import 'package:first_app/object/menu.dart';
 
 class ShowGerobakDetail extends StatefulWidget {
   @override
