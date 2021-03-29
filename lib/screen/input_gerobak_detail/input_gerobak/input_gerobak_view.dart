@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:gerobak_flutter/controller/controller.dart';
-import 'package:gerobak_flutter/model/gerobak_detail_model.dart';
-import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_menu.dart';
+import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_menu_view.dart';
+import 'package:gerobak_flutter/model/akbar_model.dart';
+import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:gerobak_flutter/theme/all_items.dart';
 import 'package:gerobak_flutter/theme/button.dart';
 import 'package:flutter/material.dart';
@@ -44,12 +46,14 @@ class InputGerobakState extends InputGerobakModel {
             child: ListBody(
               children: <Widget>[
                 GestureDetector(
+                    key: Key('Gesture OpenGallery'),
                     child: Text("Gallery"),
                     onTap: () {
                       _openGallery(context);
                     }),
                 Padding(padding: EdgeInsets.all(8.0)),
                 GestureDetector(
+                  key: Key('Gesture OpenCamera'),
                   child: Text("Camera"),
                   onTap: () {
                     _openCamera(context);
@@ -78,20 +82,18 @@ class InputGerobakState extends InputGerobakModel {
     var picture = await picker.getImage(source: ImageSource.gallery);
     this.setState(
       () {
-        foto = File(picture.path);
+        foto = 'https://images.app.goo.gl/F4P1VnXNaPC77kY4A';
       },
     );
-    Navigator.of(context).pop();
   }
 
   _openCamera(BuildContext context) async {
     var picture = await picker.getImage(source: ImageSource.camera);
     this.setState(
       () {
-        foto = File(picture.path);
+        foto = 'https://images.app.goo.gl/F4P1VnXNaPC77kY4A';
       },
     );
-    Navigator.of(context).pop();
   }
 
   Widget _buildFoto() {
@@ -112,10 +114,11 @@ class InputGerobakState extends InputGerobakModel {
     if (foto == null) {
       return _buildFoto();
     } else {
+      print(foto);
       return ClipRRect(
         borderRadius: BorderRadius.circular(30.0),
-        child: Image.file(
-          foto,
+        child: Image.network(
+          'https://images.app.goo.gl/F4P1VnXNaPC77kY4A',
           width: 300,
           height: 300,
           fit: BoxFit.contain,
@@ -225,8 +228,11 @@ class InputGerobakState extends InputGerobakModel {
         style: Theme.of(context).textTheme.headline2,
       ), // Text
       onPressed: () {
-        if (!formKey.currentState.validate()) {
-          pushNavigate(context, InputMenuScreen());
+        if (formKey.currentState.validate()) {
+          pushNavigate(
+              context,
+              InputMenuPage(namaGerobakCont.text, foto.toString(),
+                  tipeMakananCont.text, antar, jemput));
         }
       },
     );
@@ -235,6 +241,7 @@ class InputGerobakState extends InputGerobakModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('InputGerobak Key'),
       appBar: theAppBar(),
       body: SingleChildScrollView(
         child: Container(

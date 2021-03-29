@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_menu_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,6 +7,11 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('Texts are present in Input Menu Page',
       (WidgetTester tester) async {
+    String namaGerobak;
+    String foto;
+    String tipeMakanan;
+    bool antar;
+    bool jemput;
     final widget1 = find.byKey(Key('Text TambahMenu'));
     final widget2 = find.byKey(Key('Text Kembali'));
     final widget3 = find.byKey(Key('Text Simpan'));
@@ -15,7 +22,8 @@ void main() {
     final widget7 = find.byKey(Key('Text Smpan'));
     final widget8 = find.byKey(Key('Text MskkanMenu'));
 
-    await tester.pumpWidget(MaterialApp(home: InputMenuPage()));
+    await tester.pumpWidget(MaterialApp(
+        home: InputMenuPage(namaGerobak, foto, tipeMakanan, antar, jemput)));
 
     expect(widget1, findsOneWidget);
     expect(widget2, findsOneWidget);
@@ -29,6 +37,11 @@ void main() {
   });
   testWidgets('Buttons are present in Input Menu Page',
       (WidgetTester tester) async {
+    String namaGerobak;
+    String foto;
+    String tipeMakanan;
+    bool antar;
+    bool jemput;
     final widget1 = find.byKey(Key('TextButton TambahMenu'));
     final widget2 = find.byKey(Key('TextButton Kembali'));
     final widget3 = find.byKey(Key('TextButton Simpan'));
@@ -37,7 +50,8 @@ void main() {
     final widget5 = find.byKey(Key('TextButton Kelambi'));
     final widget6 = find.byKey(Key('TextButton Smipan'));
 
-    await tester.pumpWidget(MaterialApp(home: InputMenuPage()));
+    await tester.pumpWidget(MaterialApp(
+        home: InputMenuPage(namaGerobak, foto, tipeMakanan, antar, jemput)));
 
     await tester.tap(widget1);
     await tester.pump();
@@ -57,6 +71,11 @@ void main() {
 
   testWidgets('TextField Input Menu is present in Input Menu Page',
       (WidgetTester tester) async {
+    String namaGerobak;
+    String foto;
+    String tipeMakanan;
+    bool antar;
+    bool jemput;
     final widget1 = find.byKey(Key('TextButton TambahMenu'));
     final widget2 = find.byKey(Key('TextFormField Menu'));
     final widget3 = find.byKey(Key('TextFormField Harga'));
@@ -66,7 +85,8 @@ void main() {
     final widget6 = find.byKey(Key('TextFormField Hraga'));
     final widget7 = find.byKey(Key('IconButton Hapsu'));
 
-    await tester.pumpWidget(MaterialApp(home: InputMenuPage()));
+    await tester.pumpWidget(MaterialApp(
+        home: InputMenuPage(namaGerobak, foto, tipeMakanan, antar, jemput)));
 
     await tester.tap(widget1);
     await tester.pump();
@@ -82,6 +102,11 @@ void main() {
 
   testWidgets('TextField Input Menu is deleted in Input Menu Page',
       (WidgetTester tester) async {
+    String namaGerobak;
+    String foto;
+    String tipeMakanan;
+    bool antar;
+    bool jemput;
     final widget1 = find.byKey(Key('TextButton TambahMenu'));
     final widget2 = find.byKey(Key('TextFormField Menu'));
     final widget3 = find.byKey(Key('TextFormField Harga'));
@@ -91,7 +116,8 @@ void main() {
     final widget6 = find.byKey(Key('TextFormField Hraga'));
     final widget7 = find.byKey(Key('IconButton Hapsu'));
 
-    await tester.pumpWidget(MaterialApp(home: InputMenuPage()));
+    await tester.pumpWidget(MaterialApp(
+        home: InputMenuPage(namaGerobak, foto, tipeMakanan, antar, jemput)));
 
     await tester.tap(widget1);
     await tester.pump();
@@ -109,17 +135,35 @@ void main() {
 
   testWidgets('ListView are present in Input Menu Page',
       (WidgetTester tester) async {
+    String namaGerobak;
+    String foto;
+    String tipeMakanan;
+    bool antar;
+    bool jemput;
     final widget1 = find.byKey(Key('TextButton TambahMenu'));
     final widget2 = find.byKey(Key('ListView FieldMenu'));
 
     final widget3 = find.byKey(Key('ListView FiledMenu'));
 
-    await tester.pumpWidget(MaterialApp(home: InputMenuPage()));
+    await tester.pumpWidget(MaterialApp(
+        home: InputMenuPage(namaGerobak, foto, tipeMakanan, antar, jemput)));
     await tester.tap(widget1);
     await tester.pump();
 
     expect(widget2, findsOneWidget);
 
     expect(widget3, findsNothing);
+  });
+
+  testWidgets('AlertBox Success are presents in Input Menu',
+      (WidgetTester tester) async {
+    String namaGerobak;
+    String foto;
+    String tipeMakanan;
+    bool antar;
+    bool jemput;
+    final widget3 = find.byKey(Key('Text Simpan'));
+    await tester.pumpWidget(MaterialApp(
+        home: InputMenuPage(namaGerobak, foto, tipeMakanan, antar, jemput)));
   });
 }

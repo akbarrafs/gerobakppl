@@ -19,7 +19,8 @@ void main() {
     );
   }
 
-  testWidgets('Texts are present in Inpu Gerobak', (WidgetTester tester) async {
+  testWidgets('Texts are present in Input Gerobak',
+      (WidgetTester tester) async {
     final widget1 = find.byKey(Key('Text NamaGerobak'));
     final widget2 = find.byKey(Key('Text FotoGerobak'));
     final widget3 = find.byKey(Key('Text TipeMakanan'));
@@ -55,12 +56,15 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: InputGerobak()));
 
     await tester.tap(widget1);
+    await tester.pumpAndSettle();
+    expect(widget1, findsOneWidget);
+
     await tester.tap(widget2);
+    await tester.pumpAndSettle();
+    expect(widget2, findsOneWidget);
+
     await tester.tap(widget3);
     await tester.pumpAndSettle();
-
-    expect(widget1, findsOneWidget);
-    expect(widget2, findsOneWidget);
     expect(widget3, findsOneWidget);
 
     expect(widget4, findsNothing);
@@ -68,8 +72,7 @@ void main() {
     expect(widget6, findsNothing);
   });
 
-  testWidgets('Image are not present when not inputed in input gerobak',
-      (WidgetTester tester) async {
+  testWidgets('Image is present in input gerobak', (WidgetTester tester) async {
     final widget1 = find.byKey(Key('Image Gerobak'));
     await tester.pumpWidget(MaterialApp(home: InputGerobak()));
     expect(widget1, findsNothing);
@@ -94,7 +97,7 @@ void main() {
     expect(widget4, findsNothing);
   });
 
-  testWidgets('Dialog Alerts are presents in InputG erobak',
+  testWidgets('Dialog Alerts are presents in Input Gerobak',
       (WidgetTester tester) async {
     final widget1 = find.byKey(Key('TextButton Upload'));
     final widget2 = find.byKey(Key('Dialog Upload Choice'));
@@ -115,6 +118,42 @@ void main() {
     await tester.tap(widget3);
     await tester.pump();
     expect(widget4, findsOneWidget);
+  });
+
+  testWidgets('OnGesture can be pressed in Input Gerobak',
+      (WidgetTester tester) async {
+    final widget1 = find.byKey(Key('TextButton Upload'));
+    final widget3 = find.byKey(Key('Gesture OpenGallery'));
+    final widget4 = find.byKey(Key('Gesture OpenCamera'));
+
+    await tester.pumpWidget(MaterialApp(home: InputGerobak()));
+    await tester.pumpAndSettle();
+
+    await tester.tap(widget1);
+    await tester.pump();
+    await tester.tap(widget3);
+    expect(widget3, findsOneWidget);
+
+    await tester.tap(widget1);
+    await tester.pump();
+    await tester.tap(widget4);
+    expect(widget4, findsOneWidget);
+  });
+  testWidgets('CheckBox can be pressed in Input Gerobak',
+      (WidgetTester tester) async {
+    final widget1 = find.byKey(Key('Checkbox Antar'));
+    final widget2 = find.byKey(Key('Checkbox Jemput'));
+
+    await tester.pumpWidget(MaterialApp(home: InputGerobak()));
+    await tester.pumpAndSettle();
+
+    await tester.tap(widget1);
+    await tester.pump();
+    expect(widget1, findsOneWidget);
+
+    await tester.tap(widget2);
+    await tester.pump();
+    expect(widget2, findsOneWidget);
   });
 
   // testWidgets('Test the button is validate and move to another screen',

@@ -1,4 +1,4 @@
-import 'package:gerobak_flutter/model/gerobak_detail_model.dart';
+import 'package:gerobak_flutter/model/akbar_model.dart';
 import 'package:flutter/material.dart';
 import 'package:gerobak_flutter/object/menu.dart';
 
@@ -16,7 +16,7 @@ class InputMenuForm extends StatefulWidget {
   }
 }
 
-class InputMenuFormState extends State<InputMenuForm> {
+class InputMenuFormState extends InputMenuFormModel {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Widget _fieldMenu() {
     return Row(
@@ -31,6 +31,7 @@ class InputMenuFormState extends State<InputMenuForm> {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               TextFormField(
+                controller: namaMenu,
                 key: Key('TextFormField Menu'),
                 style: Theme.of(context).textTheme.headline6,
                 decoration: InputDecoration(
@@ -42,8 +43,8 @@ class InputMenuFormState extends State<InputMenuForm> {
                   ),
                 ),
                 validator: NamaMenuValidator.validate,
-                onSaved: (String value) {
-                  // namaGerobak = value;
+                onFieldSubmitted: (String namaMenu) {
+                  widget.menu.namaMenu = namaMenu;
                 },
               ),
             ],
@@ -59,6 +60,7 @@ class InputMenuFormState extends State<InputMenuForm> {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               TextFormField(
+                controller: hargaMenu,
                 key: Key('TextFormField Harga'),
                 style: Theme.of(context).textTheme.headline6,
                 decoration: InputDecoration(
@@ -70,8 +72,8 @@ class InputMenuFormState extends State<InputMenuForm> {
                   ),
                 ),
                 validator: HargaMenuValidator.validate,
-                onSaved: (String value) {
-                  // namaGerobak = value;
+                onFieldSubmitted: (String hargaMenu) {
+                  widget.menu.harga = int.parse(hargaMenu);
                 },
               ),
             ],

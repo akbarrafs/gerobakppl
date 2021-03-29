@@ -1,4 +1,6 @@
-import 'package:gerobak_flutter/model/gerobak_detail_model.dart';
+import 'package:gerobak_flutter/model/akbar_model.dart';
+import 'package:gerobak_flutter/object/gerobak.dart';
+import 'package:gerobak_flutter/object/menu.dart';
 import 'package:gerobak_flutter/theme/button.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +12,7 @@ class ShowGerobakDetail extends StatefulWidget {
 }
 
 class ShowGerobakDetailState extends ShowGerobakDetailModel {
-  Widget _isiGerobak() {
+  Widget _isiGerobak(String textNama, String fotoGer, String textTipeMakan) {
     return Container(
       color: Theme.of(context).primaryColor,
       alignment: Alignment.center,
@@ -22,14 +24,14 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
             key: Key('Text DetailGerobakDetail'),
             style: Theme.of(context).textTheme.headline5,
           ),
-          Text("Fotonya"),
+          Text(fotoGer),
           Text(
-            "Sate Padang Mba Nadia",
+            textNama,
             key: Key('Text NamaGerobakDetail'),
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
-            "Tipe Makanan",
+            textTipeMakan,
             key: Key('Text TipeMakananDetail'),
             style: Theme.of(context).textTheme.headline4,
           ),
@@ -44,7 +46,7 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
     );
   }
 
-  Widget _detailMenu() {
+  Widget _detailMenu(List<Menu> listMenu) {
     return DataTable(
       key: Key('Table DataTableDetail'),
       sortAscending: sort,
@@ -61,7 +63,7 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
           tooltip: "Harga Makanan",
         ),
       ],
-      rows: menus
+      rows: listMenu
           .map(
             (menu) => DataRow(
               cells: [
@@ -69,7 +71,7 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
                   Text(menu.namaMenu),
                 ),
                 DataCell(
-                  Text(menu.hargaMenu),
+                  Text(menu.harga.toString()),
                 ),
               ],
             ),
@@ -90,7 +92,7 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
     );
   }
 
-  Widget _buildStatusAvailibilitas() {
+  Widget _buildStatusAvailibilitas(bool antar, bool jemput) {
     return Container(
       margin: EdgeInsets.all(8.0),
       child: Row(
@@ -121,16 +123,35 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              _isiGerobak(),
-              _detailMenu(),
-              _buildStatusAvailibilitas(),
-            ],
-          ),
-        ),
+      body: FutureBuilder<Gerobak>(
+        future: gerobakDownload,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    _isiGerobak(
+                      snapshot.data.namaGerobak,
+                      snapshot.data.fotoGerobak,
+                      snapshot.data.tipeMakanan,
+                    ),
+                    _detailMenu(
+                      snapshot.data.listMenu,
+                    ),
+                    _buildStatusAvailibilitas(
+                      snapshot.data.statusAntar,
+                      snapshot.data.statusJemput,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return Center(child: Text('Loading...'));
+        },
       ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),

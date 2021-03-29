@@ -1,38 +1,63 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:gerobak_flutter/model/akbar_model.dart';
+import 'package:gerobak_flutter/object/gerobak.dart';
+import 'package:gerobak_flutter/screen/input_gerobak_detail/input_gerobak/input_gerobak_view.dart';
+import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:gerobak_flutter/controller/controller.dart';
-import 'package:gerobak_flutter/screen/input_gerobak_detail/input_gerobak/input_gerobak.dart';
 import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_menu_form.dart';
-import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail.dart';
 import 'package:gerobak_flutter/theme/all_items.dart';
 import 'package:gerobak_flutter/theme/button.dart';
 import 'package:flutter/material.dart';
 import 'package:gerobak_flutter/object/menu.dart';
+import 'package:http/http.dart' as http;
 
 class InputMenuPage extends StatefulWidget {
+  final String namaGerobak;
+  final String foto;
+  final String tipeMakanan;
+  final bool antar;
+  final bool jemput;
+
+  InputMenuPage(
+      this.namaGerobak, this.foto, this.tipeMakanan, this.antar, this.jemput);
+
   @override
   State<StatefulWidget> createState() {
     return InputMenuPageState();
   }
 }
 
-class InputMenuPageState extends State<InputMenuPage> {
-  List<Menu> menus = [];
+class InputMenuPageState extends InputMenuPageModel {
+  List<InputMenuForm> menus = [];
 
-  void onDelete(int id) {
+  void onDelete(Menu theMenu) {
     setState(() {
-      menus.removeAt(id);
+      var find = menus.firstWhere(
+        (it) => it.menu == theMenu,
+        orElse: () => null,
+      );
+      if (find != null) {
+        menus.removeAt(menus.indexOf(find));
+      }
     });
   }
 
   void onAddForm() {
     setState(() {
-      this.menus.add(Menu());
+      var theMenu = Menu();
+      menus.add(InputMenuForm(
+        menu: theMenu,
+        onDelete: () => onDelete(theMenu),
+      ));
     });
   }
 
   Widget _tambahMenu() {
     return TextButton(
       key: Key('TextButton TambahMenu'),
-      style: secondaryButtonStyle(),
+      style: primaryButtonStyle(),
       child: Text(
         ' + Tambah Menu',
         key: Key('Text TambahMenu'),
@@ -58,21 +83,29 @@ class InputMenuPageState extends State<InputMenuPage> {
               style: Theme.of(context).textTheme.headline3,
             ),
             onPressed: () {
-              pushNavigate(context, InputGerobakScreen());
+              pushNavigate(context, InputGerobak());
             },
           ),
         ),
         Flexible(
           child: TextButton(
             key: Key('TextButton Simpan'),
-            style: secondaryButtonStyle(),
+            style: primaryButtonStyle(),
             child: Text(
               'Simpan',
               key: Key('Text Simpan'),
               style: Theme.of(context).textTheme.headline2,
             ),
             onPressed: () {
-              pushNavigate(context, ShowGerobakDetailScreen());
+              var data = menus.map((it) => it.menu).toList();
+              simpan(
+                widget.namaGerobak,
+                'anjsasdaq',
+                widget.tipeMakanan,
+                widget.antar,
+                widget.jemput,
+                data,
+              );
             },
           ),
         ),
@@ -84,10 +117,7 @@ class InputMenuPageState extends State<InputMenuPage> {
     return ListView.builder(
       key: Key('ListView FieldMenu'),
       itemCount: menus.length,
-      itemBuilder: (_, i) => InputMenuForm(
-        menu: menus[i],
-        onDelete: () => onDelete(i),
-      ),
+      itemBuilder: (context, i) => menus[i],
     );
   }
 

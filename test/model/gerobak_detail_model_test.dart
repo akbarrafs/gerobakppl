@@ -1,4 +1,4 @@
-import 'package:gerobak_flutter/model/gerobak_detail_model.dart';
+import 'package:gerobak_flutter/model/akbar_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

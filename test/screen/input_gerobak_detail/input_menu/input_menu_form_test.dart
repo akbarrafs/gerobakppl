@@ -43,6 +43,22 @@ void main() {
     expect(widget3, findsNothing);
     expect(widget4, findsNothing);
   });
+
+  testWidgets('TextField are submitted', (WidgetTester tester) async {
+    final widget1 = find.byKey(Key('TextFormField Menu'));
+    final widget2 = find.byKey(Key('TextFormField Harga'));
+
+    await tester.pumpWidget(MaterialApp(home: InputMenuForm()));
+    await tester.tap(widget1);
+    await tester.enterText(widget1, 'Samlikum');
+    await tester.pump();
+    expect(find.text('Samlikum'), findsOneWidget);
+
+    await tester.tap(widget2);
+    await tester.enterText(widget2, 'Kumsalam');
+    await tester.pump();
+    expect(find.text('Kumsalam'), findsOneWidget);
+  });
   testWidgets('Icon Button is present in Input Menu Form',
       (WidgetTester tester) async {
     final widget1 = find.byKey(Key('IconButton Hapus'));
@@ -54,5 +70,31 @@ void main() {
     expect(widget1, findsOneWidget);
 
     expect(widget2, findsNothing);
+  });
+
+  testWidgets('onFieldSubmit callbacks are called in Input Menu Form',
+      (WidgetTester tester) async {
+    bool _called = false;
+
+    await tester.pumpWidget(MaterialApp(home: InputMenuForm()));
+    await tester.pumpAndSettle();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: Center(
+            child: TextFormField(
+              onFieldSubmitted: (String value) {
+                _called = true;
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.showKeyboard(find.byType(TextField));
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pump();
+    expect(_called, true);
   });
 }
