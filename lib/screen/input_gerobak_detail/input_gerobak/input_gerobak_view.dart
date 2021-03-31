@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:gerobak_flutter/controller/controller.dart';
 import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_menu_view.dart';
 import 'package:gerobak_flutter/model/akbar_model.dart';
-import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:gerobak_flutter/theme/all_items.dart';
 import 'package:gerobak_flutter/theme/button.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +80,7 @@ class InputGerobakState extends InputGerobakModel {
     var picture = await picker.getImage(source: ImageSource.gallery);
     this.setState(
       () {
-        foto = 'https://images.app.goo.gl/F4P1VnXNaPC77kY4A';
+        foto = File(picture.path);
       },
     );
   }
@@ -91,12 +89,12 @@ class InputGerobakState extends InputGerobakModel {
     var picture = await picker.getImage(source: ImageSource.camera);
     this.setState(
       () {
-        foto = 'https://images.app.goo.gl/F4P1VnXNaPC77kY4A';
+        foto = File(picture.path);
       },
     );
   }
 
-  Widget _buildFoto() {
+  Widget _buildFoto(String text) {
     return TextButton(
       key: Key('TextButton Upload'),
       style: primaryButtonStyle(),
@@ -104,7 +102,7 @@ class InputGerobakState extends InputGerobakModel {
         _showChoiceDialog(context);
       },
       child: Text(
-        "Upload Gambar",
+        text,
         style: Theme.of(context).textTheme.headline2,
       ),
     );
@@ -112,20 +110,48 @@ class InputGerobakState extends InputGerobakModel {
 
   Widget _imageView() {
     if (foto == null) {
-      return _buildFoto();
+      return _buildFoto("Upload Foto");
     } else {
-      print(foto);
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(30.0),
-        child: Image.network(
-          'https://images.app.goo.gl/F4P1VnXNaPC77kY4A',
-          width: 300,
-          height: 300,
-          fit: BoxFit.contain,
-          key: Key('Image Gerobak'),
-        ),
+      print(foto.toString());
+      return Column(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30.0),
+            child: Image.file(
+              foto,
+              width: 300,
+              height: 300,
+              fit: BoxFit.contain,
+              key: Key('Image Gerobak'),
+            ),
+          ),
+          _imageActionButton(),
+        ],
       );
     }
+  }
+
+  Widget _imageActionButton() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 55.0, vertical: 10.0),
+      child: Row(
+        children: <Widget>[
+          _buildFoto("Ubah Foto"),
+          SizedBox(
+            width: 10,
+          ),
+          TextButton(
+            key: Key("TextButton UploadFireBase"),
+            style: primaryButtonStyle(),
+            onPressed: () {},
+            child: Text(
+              "Upload",
+              style: Theme.of(context).textTheme.headline2,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildTipeMakanan() {

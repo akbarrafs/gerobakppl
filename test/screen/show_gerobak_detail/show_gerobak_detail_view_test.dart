@@ -1,8 +1,24 @@
 import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
+  MockNavigatorObserver mockObserver;
+
+  setUp(() {
+    mockObserver = MockNavigatorObserver();
+    reset(mockObserver);
+  });
+  Widget makeTestableWidget({Widget child}) {
+    return MaterialApp(
+      home: child,
+      navigatorObservers: [mockObserver],
+    );
+  }
+
   // testWidgets('Texts are present in ShowGerobakDetail',
   //     (WidgetTester tester) async {
   //   final widget1 = find.byKey(Key('Text DetailGerobakDetail'));
@@ -74,5 +90,20 @@ void main() {
 
   //   expect(widget3, findsNothing);
   //   expect(widget4, findsNothing);
+  // });
+
+  // testWidgets('Test the button is validate and move to another screen',
+  //     (WidgetTester tester) async {
+  //   InputGerobak widget1 = InputGerobak();
+  //   await tester.pumpWidget(makeTestableWidget(child: widget1));
+  //   await tester.pumpAndSettle();
+
+  //   verify(mockObserver.didPush(any, any));
+
+  //   await tester.tap(find.byKey(Key('Button Submit')));
+  //   await tester.pumpAndSettle();
+
+  //   verify(mockObserver.didPush(any, any));
+  //   expect(find.byKey(Key('InputMenuScreen Key')), findsOneWidget);
   // });
 }

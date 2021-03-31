@@ -1,17 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:gerobak_flutter/model/akbar_model.dart';
-import 'package:gerobak_flutter/object/gerobak.dart';
 import 'package:gerobak_flutter/screen/input_gerobak_detail/input_gerobak/input_gerobak_view.dart';
-import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:gerobak_flutter/controller/controller.dart';
 import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_menu_form.dart';
 import 'package:gerobak_flutter/theme/all_items.dart';
 import 'package:gerobak_flutter/theme/button.dart';
 import 'package:flutter/material.dart';
 import 'package:gerobak_flutter/object/menu.dart';
-import 'package:http/http.dart' as http;
 
 class InputMenuPage extends StatefulWidget {
   final String namaGerobak;
@@ -99,6 +93,7 @@ class InputMenuPageState extends InputMenuPageModel {
             onPressed: () {
               var data = menus.map((it) => it.menu).toList();
               simpan(
+                '',
                 widget.namaGerobak,
                 'anjsasdaq',
                 widget.tipeMakanan,

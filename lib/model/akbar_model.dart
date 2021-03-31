@@ -6,7 +6,7 @@ import 'package:gerobak_flutter/screen/input_gerobak_detail/input_menu/input_men
 import 'package:gerobak_flutter/object/menu.dart';
 import 'package:gerobak_flutter/object/gerobak.dart';
 import 'package:gerobak_flutter/screen/input_gerobak_detail/input_gerobak/input_gerobak_view.dart';
-import 'package:gerobak_flutter/screen/input_gerobak_detail/ubah_gerobak/ubah_gerobak_view.dart';
+// import 'package:gerobak_flutter/screen/input_gerobak_detail/ubah_gerobak/ubah_gerobak_view.dart';
 import 'package:gerobak_flutter/screen/show_gerobak_detail/show_gerobak_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,7 +18,7 @@ abstract class InputGerobakModel extends State<InputGerobak> {
   TextEditingController namaGerobakCont = TextEditingController();
   TextEditingController tipeMakananCont = TextEditingController();
   String namaGerobak;
-  String foto;
+  File foto;
   String tipeMakanan;
   bool antar;
   bool jemput;
@@ -38,6 +38,7 @@ abstract class InputMenuFormModel extends State<InputMenuForm> {
 
 abstract class InputMenuPageModel extends State<InputMenuPage> {
   Future<http.Response> simpan(
+    String token,
     String namaGerobak,
     String fotoGerobak,
     String tipeMakanan,
@@ -51,8 +52,7 @@ abstract class InputMenuPageModel extends State<InputMenuPage> {
       url,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhcGFuZGFyYWZzQGdtYWlsLmNvbSIsImlhdCI6MTYxNzAwNzMzMiwiZXhwIjoxNjE3MDkzNzMyfQ.hG_1iR350-ofd8bgfiFaLnNlCMn9qDu_S4dtaK6NY-A3RnpvK5IDNiEqs4ZkWFeviATmpr0b3dgQiMLm0LfrXA',
+        'Authorization': 'Bearer ' + token,
       },
       body: jsonEncode(<String, dynamic>{
         "namaGerobak": namaGerobak,
@@ -63,42 +63,42 @@ abstract class InputMenuPageModel extends State<InputMenuPage> {
         "listMenu": listMenu,
       }),
     );
-    // print('Keluar: ');
-    // print(namaGerobak);
-    // print(fotoGerobak);
-    // print(tipeMakanan);
-    // print(statusAntar);
-    // print(statusJemput);
-    // print(listMenu);
-    // print(response.statusCode);
-    // print(response.body);
-    // final Map parsedResponse = json.decode(response.body);
+    print('Keluar: ');
+    print(namaGerobak);
+    print(fotoGerobak);
+    print(tipeMakanan);
+    print(statusAntar);
+    print(statusJemput);
+    print(listMenu);
+    print(response.statusCode);
+    print(response.body);
   }
 }
 
-abstract class UbahGerobakModel extends State<UbahGerobak> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  ImagePicker picker = ImagePicker();
-  TextEditingController namaGerobakCont = TextEditingController();
-  TextEditingController tipeMakananCont = TextEditingController();
-  String namaGerobak;
-  File foto;
-  String tipeMakanan;
-  bool antar;
-  bool jemput;
+// abstract class UbahGerobakModel extends State<UbahGerobak> {
+//   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+//   ImagePicker picker = ImagePicker();
+//   TextEditingController namaGerobakCont = TextEditingController();
+//   TextEditingController tipeMakananCont = TextEditingController();
+//   String namaGerobak;
+//   File foto;
+//   String tipeMakanan;
+//   bool antar;
+//   bool jemput;
 
-  @override
-  void initState() {
-    super.initState();
-    antar = false;
-    jemput = false;
-  }
-}
+//   @override
+//   void initState() {
+//     super.initState();
+//     antar = false;
+//     jemput = false;
+//   }
+// }
 
 abstract class ShowGerobakDetailModel extends State<ShowGerobakDetail> {
+  String theGroupValue;
   bool sort;
   Future<Gerobak> gerobakDownload;
-  Future<Gerobak> fetchGerobak() async {
+  Future<Gerobak> fetchGerobak(String id) async {
     Uri url = Uri.parse('http://dev-gerobak.herokuapp.com/gerobak/view/164');
     // final response = await http.get(Uri.https(
     //   'raw.githubusercontent.com',
@@ -124,7 +124,7 @@ abstract class ShowGerobakDetailModel extends State<ShowGerobakDetail> {
   void initState() {
     super.initState();
     sort = false;
-    gerobakDownload = fetchGerobak();
+    gerobakDownload = fetchGerobak('');
   }
 }
 

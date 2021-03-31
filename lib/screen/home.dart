@@ -9,7 +9,6 @@ class GerobakApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(),
       theme: basicTheme(),
       home: HomeScreen(),
       key: Key('GerobakApp Key'),

@@ -100,7 +100,10 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
           Radio(
             key: Key('Radio AntarDetail'),
             value: antar,
-            groupValue: null,
+            groupValue: theGroupValue,
+            onChanged: (value) {
+              theGroupValue = value;
+            },
           ),
           Text(
             "Antar",
@@ -109,7 +112,10 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
           Radio(
             key: Key('Radio JemputDetail'),
             value: jemput,
-            groupValue: null,
+            groupValue: theGroupValue,
+            onChanged: (value) {
+              theGroupValue = value;
+            },
           ),
           Text(
             "Jemput",
@@ -124,35 +130,34 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<Gerobak>(
-        future: gerobakDownload,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    _isiGerobak(
-                      snapshot.data.namaGerobak,
-                      snapshot.data.fotoGerobak,
-                      snapshot.data.tipeMakanan,
-                    ),
-                    _detailMenu(
-                      snapshot.data.listMenu,
-                    ),
-                    _buildStatusAvailibilitas(
-                      snapshot.data.statusAntar,
-                      snapshot.data.statusJemput,
-                    ),
-                  ],
+          future: gerobakDownload,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      _isiGerobak(
+                        snapshot.data.namaGerobak,
+                        snapshot.data.fotoGerobak,
+                        snapshot.data.tipeMakanan,
+                      ),
+                      _detailMenu(
+                        snapshot.data.listMenu,
+                      ),
+                      _buildStatusAvailibilitas(
+                        snapshot.data.statusAntar,
+                        snapshot.data.statusJemput,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
-          return Center(child: Text('Loading...'));
-        },
-      ),
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return Center(child: Text('Loading...'));
+          }),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
         child: _tambahMenu(),
