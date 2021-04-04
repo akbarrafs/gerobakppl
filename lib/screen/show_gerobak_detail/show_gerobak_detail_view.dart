@@ -36,7 +36,7 @@ class ShowGerobakDetailState extends ShowGerobakDetailModel {
             style: Theme.of(context).textTheme.headline4,
           ),
           Text(
-            "Ratingg",
+            "Rating",
             key: Key('Text RatingDetail'),
             style: Theme.of(context).textTheme.headline4,
           ),
